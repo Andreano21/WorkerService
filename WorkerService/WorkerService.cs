@@ -36,10 +36,10 @@ namespace WorkerService
                     _logger.LogError(ex, "Ошибка при выполнении NotifySubscribers");
                 }
 
-            }, null, TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(1));
+            }, null, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(5));
 
 
-            specificTimeTimer = TimerHelper.SpecificTime(18, 40, async e =>
+            specificTimeTimer = TimerHelper.SpecificTime(23, 50, async e =>
             {
                 try
                 {
@@ -73,22 +73,12 @@ namespace WorkerService
 
         public async Task CollectDailyStatistics()
         {
-            Random rnd = new Random();
-
-            if (rnd.NextDouble() > 0.1)
-                await Task.CompletedTask;
-            else
-                throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public async Task NotifySubscribers()
         {
-            Random rnd = new Random();
-
-            if (rnd.NextDouble() > 0.1)
-                await Task.CompletedTask;
-            else
-                throw new NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
