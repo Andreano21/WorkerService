@@ -3,8 +3,6 @@ version: '3.4'
 services:
   workerservice:
     image: ${DOCKER_REGISTRY-}workerservice
-    ports:
-      - 5555:80
     volumes:
       - /var/log/fastzila:/app/log
     build:

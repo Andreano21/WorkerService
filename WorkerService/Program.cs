@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Serilog;
 using Serilog.Filters;
 using Serilog.Events;
+using System.Text;
 
 namespace WorkerService
 {
@@ -27,16 +28,14 @@ namespace WorkerService
                                                            .WriteTo.File(@"/app/log/ws_error.log"))
                 .CreateLogger();
 
-            Log.Information(AppDomain.CurrentDomain.BaseDirectory);
-
             try
             {
-                Log.Information("Запуск приложения.");
                 CreateHostBuilder(args).Build().Run();
+                Log.Information("Application running.");
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Ошибка при запуске приложения.");
+                Log.Fatal(ex, "There was a problem starting the application.");
             }
             finally
             {

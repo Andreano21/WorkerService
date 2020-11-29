@@ -22,18 +22,18 @@ namespace WorkerService
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Приложение запущено.");
+            _logger.LogInformation("WorkerService running.");
 
             fiveMinutesTimer = new Timer(async (e) =>
             {
                 try
                 {
                     await NotifySubscribers();
-                    _logger.LogInformation("NotifySubscribers выполнен.");
+                    _logger.LogInformation("Successful task completion: NotifySubscribers()");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка при выполнении NotifySubscribers");
+                    _logger.LogError(ex, "Error while executing task: NotifySubscribers()");
                 }
 
             }, null, TimeSpan.FromSeconds(0), TimeSpan.FromMinutes(5));
@@ -44,11 +44,11 @@ namespace WorkerService
                 try
                 {
                     await CollectDailyStatistics();
-                    _logger.LogInformation("Дневная статистика собрана.");
+                    _logger.LogInformation("Successful task completion: CollectDailyStatistics()");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка при сборе дневной статистики.");
+                    _logger.LogError(ex, "Error while executing task: CollectDailyStatistics()");
                 }
             });
 
@@ -57,7 +57,7 @@ namespace WorkerService
 
         public Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Приложение остановлено.");
+            _logger.LogInformation("WorkerService stoped.");
 
             fiveMinutesTimer?.Change(Timeout.Infinite, 0);
             specificTimeTimer?.Change(Timeout.Infinite, 0);
